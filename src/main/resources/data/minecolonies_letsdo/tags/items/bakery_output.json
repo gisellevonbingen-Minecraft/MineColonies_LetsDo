@@ -1,0 +1,21 @@
+{
+	"values": [
+		"minecraft:bread",
+		{
+			"required": false,
+			"id": "#forge:bread"
+		},
+		{
+			"required": false,
+			"id": "#bakery:bread"
+		},
+		{
+			"required": false,
+			"id": "farm_and_charm:yeast"
+		},
+		{
+			"required": false,
+			"id": "farm_and_charm:dough"
+		}
+	]
+}

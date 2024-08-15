@@ -1,0 +1,20 @@
+{
+	"_comment_texts": "Texts",
+	"minecolonies_letsdo.text.unsupported_recipe": "Unsupported recipe",
+	
+	"_comment_modules": "Modules",
+	"com.minecolonies.coremod.gui.workerhuts.recipe.lets_do_farm_and_charm_stove": "[Let's Do] Farm & Charm - Stove Recipes",
+	"com.minecolonies.coremod.gui.workerhuts.recipe.lets_do_farm_and_charm_stove.menu": "Stove Recipes",
+	"com.minecolonies.coremod.gui.workerhuts.recipe.lets_do_farm_and_charm_bowl": "[Let's Do] Farm & Charm - Crafting Bowl Recipes",
+	"com.minecolonies.coremod.gui.workerhuts.recipe.lets_do_farm_and_charm_bowl.menu": "Crafting Bowl Recipes",
+	"com.minecolonies.coremod.gui.workerhuts.recipe.lets_do_farm_and_charm_pot": "[Let's Do] Farm & Charm - Cooking Pot Recipes",
+	"com.minecolonies.coremod.gui.workerhuts.recipe.lets_do_farm_and_charm_pot.menu": "Cooking Pot Recipes",
+	"com.minecolonies.coremod.gui.workerhuts.recipe.lets_do_farm_and_charm_mincer": "[Let's Do] Farm & Charm - Mincer Recipes",
+	"com.minecolonies.coremod.gui.workerhuts.recipe.lets_do_farm_and_charm_mincer.menu": "Mincer Recipes",
+	"com.minecolonies.coremod.gui.workerhuts.recipe.lets_do_farm_and_charm_roaster": "[Let's Do] Farm & Charm - Roaster Recipes",
+	"com.minecolonies.coremod.gui.workerhuts.recipe.lets_do_farm_and_charm_roaster.menu": "Roaster Recipes",
+	"com.minecolonies.coremod.gui.workerhuts.recipe.lets_do_bakery_baking": "[Let's Do] Bakery - Caking Station Recipes",
+	"com.minecolonies.coremod.gui.workerhuts.recipe.lets_do_bakery_baking.menu": "Caking Station Recipes",
+	
+	"_eof": "EOF"
+}
