@@ -7,6 +7,7 @@ import java.util.function.BiFunction;
 import java.util.function.Supplier;
 
 import steve_gall.minecolonies_letsdo.module.common.bakery.BakeryModule;
+import steve_gall.minecolonies_letsdo.module.common.brewery.BreweryModule;
 import steve_gall.minecolonies_letsdo.module.common.farm_and_charm.FarmAndCharmModule;
 
 public class ModuleManager
@@ -28,6 +29,7 @@ public class ModuleManager
 
 	public static final OptionalModule<FarmAndCharmModule> FARM_AND_CHARM = register("farm_and_charm", () -> FarmAndCharmModule::new);
 	public static final OptionalModule<BakeryModule> BAKERY = register("bakery", LetsDoV2Module::new, () -> BakeryModule::new);
+	public static final OptionalModule<BreweryModule> BREWERY = register("brewery", LetsDoV2Module::new, () -> BreweryModule::new);
 
 	private static <MODULE extends AbstractModule> OptionalModule<MODULE> register(String modid, Supplier<Supplier<MODULE>> initializer)
 	{
