@@ -47,9 +47,9 @@ public abstract class FarmAndCharmCraftingModule extends AbstractCraftingModuleW
 	}
 
 	@Override
-	public void serializeToView(@NotNull FriendlyByteBuf buf)
+	public void serializeToView(@NotNull FriendlyByteBuf buf, boolean fullSync)
 	{
-		super.serializeToView(buf);
+		super.serializeToView(buf, fullSync);
 
 		buf.writeBoolean(this.isBakery);
 	}
