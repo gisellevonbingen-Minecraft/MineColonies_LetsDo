@@ -38,10 +38,10 @@ public abstract class FarmAndCharmCraftingModule extends AbstractCraftingModuleW
 	@Override
 	public boolean isRecipeCompatible(@NotNull IGenericRecipe recipe)
 	{
-		return this.isRecipeCompatible(recipe.getPrimaryOutput());
+		return this.isOutputCompatible(recipe.getPrimaryOutput());
 	}
 
-	public boolean isRecipeCompatible(ItemStack output)
+	public boolean isOutputCompatible(ItemStack output)
 	{
 		return FarmAndCharmModule.testBakery(this.isBakery, output);
 	}

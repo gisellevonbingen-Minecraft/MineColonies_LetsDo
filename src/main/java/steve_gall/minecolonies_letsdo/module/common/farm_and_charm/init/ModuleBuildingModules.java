@@ -13,6 +13,8 @@ import steve_gall.minecolonies_letsdo.module.common.farm_and_charm.building.modu
 import steve_gall.minecolonies_letsdo.module.common.farm_and_charm.building.modules.PotCraftingModuleView;
 import steve_gall.minecolonies_letsdo.module.common.farm_and_charm.building.modules.RoasterCraftingModule;
 import steve_gall.minecolonies_letsdo.module.common.farm_and_charm.building.modules.RoasterCraftingModuleView;
+import steve_gall.minecolonies_letsdo.module.common.farm_and_charm.building.modules.SiloCraftingModule;
+import steve_gall.minecolonies_letsdo.module.common.farm_and_charm.building.modules.SiloCraftingModuleView;
 import steve_gall.minecolonies_letsdo.module.common.farm_and_charm.building.modules.StoveCraftingModule;
 import steve_gall.minecolonies_letsdo.module.common.farm_and_charm.building.modules.StoveCraftingModuleView;
 
@@ -68,6 +70,24 @@ public class ModuleBuildingModules
 				public boolean isOutputCompatible(ItemStack output)
 				{
 					return output.is(ModuleTags.Items.SEEDS);
+				};
+
+			});//
+
+	public static final BuildingEntry.ModuleProducer<SiloCraftingModule, SiloCraftingModuleView> FARMER_SILO = new BuildingEntry.ModuleProducer<>("farmer_lets_do_farm_and_charm_silo", //
+			() -> new SiloCraftingModule(ModJobs.farmer.get())
+			{
+				public boolean isOutputCompatible(ItemStack output)
+				{
+					return output.is(ModuleTags.Items.FARMER_SILO_PRODUCT);
+				}
+			}, //
+			() -> () -> new SiloCraftingModuleView()
+			{
+				@Override
+				public boolean isOutputCompatible(ItemStack output)
+				{
+					return output.is(ModuleTags.Items.FARMER_SILO_PRODUCT);
 				};
 
 			});//

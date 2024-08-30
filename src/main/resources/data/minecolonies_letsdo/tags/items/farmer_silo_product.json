@@ -1,0 +1,20 @@
+{
+	"values": [
+		{
+			"required": false,
+			"id": "brewery:dried_barley"
+		},
+		{
+			"required": false,
+			"id": "brewery:dried_corn"
+		},
+		{
+			"required": false,
+			"id": "brewery:dried_oat"
+		},
+		{
+			"required": false,
+			"id": "brewery:dried_wheat"
+		}
+	]
+}

@@ -25,7 +25,7 @@ public abstract class FarmAndCharmTeachMenu<RECIPE extends Recipe<?>> extends Te
 	{
 		super(menuType, windowId, inventory, module);
 
-		this.isOutputCompatible = ((FarmAndCharmCraftingModule) module)::isRecipeCompatible;
+		this.isOutputCompatible = ((FarmAndCharmCraftingModule) module)::isOutputCompatible;
 	}
 
 	public FarmAndCharmTeachMenu(MenuType<?> menuType, int windowId, Inventory inventory, FriendlyByteBuf buffer)

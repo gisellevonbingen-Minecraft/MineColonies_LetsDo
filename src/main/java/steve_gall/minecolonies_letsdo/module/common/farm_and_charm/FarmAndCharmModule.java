@@ -15,6 +15,7 @@ import steve_gall.minecolonies_letsdo.module.client.farm_and_charm.BowlTeachScre
 import steve_gall.minecolonies_letsdo.module.client.farm_and_charm.MincerTeachScreen;
 import steve_gall.minecolonies_letsdo.module.client.farm_and_charm.PotTeachScreen;
 import steve_gall.minecolonies_letsdo.module.client.farm_and_charm.RoasterTeachScreen;
+import steve_gall.minecolonies_letsdo.module.client.farm_and_charm.SiloTeachScreen;
 import steve_gall.minecolonies_letsdo.module.client.farm_and_charm.StoveTeachScreen;
 import steve_gall.minecolonies_letsdo.module.common.AbstractModule;
 import steve_gall.minecolonies_letsdo.module.common.ModuleManager;
@@ -22,6 +23,7 @@ import steve_gall.minecolonies_letsdo.module.common.farm_and_charm.crafting.Bowl
 import steve_gall.minecolonies_letsdo.module.common.farm_and_charm.crafting.MincerRecipeStorage;
 import steve_gall.minecolonies_letsdo.module.common.farm_and_charm.crafting.PotRecipeStorage;
 import steve_gall.minecolonies_letsdo.module.common.farm_and_charm.crafting.RoasterRecipeStorage;
+import steve_gall.minecolonies_letsdo.module.common.farm_and_charm.crafting.SiloRecipeStorage;
 import steve_gall.minecolonies_letsdo.module.common.farm_and_charm.crafting.StoveRecipeStorage;
 import steve_gall.minecolonies_letsdo.module.common.farm_and_charm.init.ModuleBuildingModules;
 import steve_gall.minecolonies_letsdo.module.common.farm_and_charm.init.ModuleCraftingTypes;
@@ -31,6 +33,7 @@ import steve_gall.minecolonies_letsdo.module.common.farm_and_charm.network.BowlO
 import steve_gall.minecolonies_letsdo.module.common.farm_and_charm.network.MincerOpenTeachMessage;
 import steve_gall.minecolonies_letsdo.module.common.farm_and_charm.network.PotOpenTeachMessage;
 import steve_gall.minecolonies_letsdo.module.common.farm_and_charm.network.RoasterOpenTeachMessage;
+import steve_gall.minecolonies_letsdo.module.common.farm_and_charm.network.SiloOpenTeachMessage;
 import steve_gall.minecolonies_letsdo.module.common.farm_and_charm.network.StoveOpenTeachMessage;
 import steve_gall.minecolonies_tweaks.api.common.crafting.CustomizedRecipeStorageRegistry;
 
@@ -51,12 +54,14 @@ public class FarmAndCharmModule extends AbstractModule
 		network.registerMessage(PotOpenTeachMessage.class, PotOpenTeachMessage::new);
 		network.registerMessage(MincerOpenTeachMessage.class, MincerOpenTeachMessage::new);
 		network.registerMessage(RoasterOpenTeachMessage.class, RoasterOpenTeachMessage::new);
+		network.registerMessage(SiloOpenTeachMessage.class, SiloOpenTeachMessage::new);
 
 		CustomizedRecipeStorageRegistry.INSTANCE.register(StoveRecipeStorage.ID, StoveRecipeStorage::serialize, StoveRecipeStorage::new);
 		CustomizedRecipeStorageRegistry.INSTANCE.register(BowlRecipeStorage.ID, BowlRecipeStorage::serialize, BowlRecipeStorage::new);
 		CustomizedRecipeStorageRegistry.INSTANCE.register(PotRecipeStorage.ID, PotRecipeStorage::serialize, PotRecipeStorage::new);
 		CustomizedRecipeStorageRegistry.INSTANCE.register(MincerRecipeStorage.ID, MincerRecipeStorage::serialize, MincerRecipeStorage::new);
 		CustomizedRecipeStorageRegistry.INSTANCE.register(RoasterRecipeStorage.ID, RoasterRecipeStorage::serialize, RoasterRecipeStorage::new);
+		CustomizedRecipeStorageRegistry.INSTANCE.register(SiloRecipeStorage.ID, SiloRecipeStorage::serialize, SiloRecipeStorage::new);
 	}
 
 	@Override
@@ -74,6 +79,7 @@ public class FarmAndCharmModule extends AbstractModule
 			ModBuildings.kitchen.get().getModuleProducers().add(ModuleBuildingModules.CHEF_ROASTER);
 
 			ModBuildings.farmer.get().getModuleProducers().add(ModuleBuildingModules.FARMER_MINCER);
+			ModBuildings.farmer.get().getModuleProducers().add(ModuleBuildingModules.FARMER_SILO);
 		});
 	}
 
@@ -86,6 +92,7 @@ public class FarmAndCharmModule extends AbstractModule
 		MenuScreens.register(ModuleMenuTypes.POT_TEACH.get(), PotTeachScreen::new);
 		MenuScreens.register(ModuleMenuTypes.MINCER_TEACH.get(), MincerTeachScreen::new);
 		MenuScreens.register(ModuleMenuTypes.ROASTER_TEACH.get(), RoasterTeachScreen::new);
+		MenuScreens.register(ModuleMenuTypes.SILO_TEACH.get(), SiloTeachScreen::new);
 	}
 
 	public static boolean isFromBakery(ItemStack output)
@@ -108,7 +115,7 @@ public class FarmAndCharmModule extends AbstractModule
 
 	public static boolean isChefMincerable(ItemStack output)
 	{
-		return output.is(ModuleTags.Items.CHEF_MINCEABLE) || ItemStackUtils.ISFOOD.test(output);
+		return output.is(ModuleTags.Items.CHEF_MINCER_PRODUCT) || ItemStackUtils.ISFOOD.test(output);
 	}
 
 }

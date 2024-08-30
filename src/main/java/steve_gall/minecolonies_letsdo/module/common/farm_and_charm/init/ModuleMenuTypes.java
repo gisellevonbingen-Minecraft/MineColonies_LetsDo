@@ -10,6 +10,7 @@ import steve_gall.minecolonies_letsdo.module.common.farm_and_charm.menu.BowlTeac
 import steve_gall.minecolonies_letsdo.module.common.farm_and_charm.menu.MincerTeachMenu;
 import steve_gall.minecolonies_letsdo.module.common.farm_and_charm.menu.PotTeachMenu;
 import steve_gall.minecolonies_letsdo.module.common.farm_and_charm.menu.RoasterTeachMenu;
+import steve_gall.minecolonies_letsdo.module.common.farm_and_charm.menu.SiloTeachMenu;
 import steve_gall.minecolonies_letsdo.module.common.farm_and_charm.menu.StoveTeachMenu;
 
 public class ModuleMenuTypes
@@ -20,6 +21,7 @@ public class ModuleMenuTypes
 	public static final RegistryObject<MenuType<PotTeachMenu>> POT_TEACH = REGISTER.register("farm_and_charm_cooking_teach", () -> IForgeMenuType.create(PotTeachMenu::new));
 	public static final RegistryObject<MenuType<MincerTeachMenu>> MINCER_TEACH = REGISTER.register("farm_and_charm_mincer_teach", () -> IForgeMenuType.create(MincerTeachMenu::new));
 	public static final RegistryObject<MenuType<RoasterTeachMenu>> ROASTER_TEACH = REGISTER.register("farm_and_charm_roaster_teach", () -> IForgeMenuType.create(RoasterTeachMenu::new));
+	public static final RegistryObject<MenuType<SiloTeachMenu>> SILO_TEACH = REGISTER.register("farm_and_charm_silo_teach", () -> IForgeMenuType.create(SiloTeachMenu::new));
 
 	private ModuleMenuTypes()
 	{

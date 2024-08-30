@@ -13,8 +13,13 @@
 	"com.minecolonies.coremod.gui.workerhuts.recipe.lets_do_farm_and_charm_mincer.menu": "Mincer Recipes",
 	"com.minecolonies.coremod.gui.workerhuts.recipe.lets_do_farm_and_charm_roaster": "[Let's Do] Farm & Charm - Roaster Recipes",
 	"com.minecolonies.coremod.gui.workerhuts.recipe.lets_do_farm_and_charm_roaster.menu": "Roaster Recipes",
+	"com.minecolonies.coremod.gui.workerhuts.recipe.lets_do_farm_and_charm_silo": "[Let's Do] Farm & Charm - Silo Recipes",
+	"com.minecolonies.coremod.gui.workerhuts.recipe.lets_do_farm_and_charm_silo.menu": "Silo Recipes",
 	"com.minecolonies.coremod.gui.workerhuts.recipe.lets_do_bakery_baking": "[Let's Do] Bakery - Caking Station Recipes",
 	"com.minecolonies.coremod.gui.workerhuts.recipe.lets_do_bakery_baking.menu": "Caking Station Recipes",
+	
+	"_comment_interaction": "Interaction Messages",
+	"minecolonies_compatibility.interaction.no_lets_do_brewery_silo": "My work hut doesn't have any [Let's Do] Farm & Charm's Silo! Please place it so I have some I can use!",
 	
 	"_eof": "EOF"
 }
