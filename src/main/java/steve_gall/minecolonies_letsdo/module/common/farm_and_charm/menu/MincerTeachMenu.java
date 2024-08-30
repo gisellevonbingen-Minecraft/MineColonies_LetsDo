@@ -11,6 +11,7 @@ import com.minecolonies.api.crafting.registry.CraftingType;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
@@ -80,9 +81,9 @@ public class MincerTeachMenu extends TeachRecipeMenu<MincerRecipe>
 			}
 
 			@Override
-			public Container createRecipeContainer(Container container)
+			protected boolean test(MincerRecipe recipe, Container container, ServerPlayer player)
 			{
-				return container;
+				return this.matchesWithIngredientsCount(recipe, container);
 			}
 
 		};

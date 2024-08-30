@@ -16,12 +16,10 @@ import net.satisfy.farm_and_charm.recipe.RoasterRecipe;
 import net.satisfy.farm_and_charm.registry.RecipeTypeRegistry;
 import steve_gall.minecolonies_compatibility.api.common.inventory.IMenuRecipeValidator;
 import steve_gall.minecolonies_compatibility.api.common.inventory.MenuRecipeValidatorRecipe;
-import steve_gall.minecolonies_compatibility.core.common.inventory.ContainerHelper;
 import steve_gall.minecolonies_compatibility.core.common.inventory.TeachContainer;
 import steve_gall.minecolonies_compatibility.core.common.inventory.TeachInputSlot;
 import steve_gall.minecolonies_compatibility.core.common.inventory.TeachRecipeMenu;
 import steve_gall.minecolonies_compatibility.core.common.inventory.TeachResultSlot;
-import steve_gall.minecolonies_compatibility.core.common.item.ItemStackHelper;
 import steve_gall.minecolonies_compatibility.core.common.util.NBTUtils2;
 import steve_gall.minecolonies_letsdo.module.common.farm_and_charm.init.ModuleCraftingTypes;
 import steve_gall.minecolonies_letsdo.module.common.farm_and_charm.init.ModuleMenuTypes;
@@ -83,15 +81,9 @@ public class RoasterTeachMenu extends TeachRecipeMenu<RoasterRecipe>
 			}
 
 			@Override
-			public Container createRecipeContainer(Container container)
+			protected boolean test(RoasterRecipe recipe, Container container, ServerPlayer player)
 			{
-				return container;
-			}
-
-			@Override
-			protected boolean test(RoasterRecipe recipe, ServerPlayer player, Container container)
-			{
-				return recipe.getIngredients().size() == ItemStackHelper.filterNotEmpty(ContainerHelper.getItemStacks(container)).size();
+				return this.matchesWithIngredientsCount(recipe, container);
 			}
 
 		};
