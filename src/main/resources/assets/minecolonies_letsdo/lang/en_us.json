@@ -19,7 +19,7 @@
 	"com.minecolonies.coremod.gui.workerhuts.recipe.lets_do_bakery_baking.menu": "Caking Station Recipes",
 	
 	"_comment_interaction": "Interaction Messages",
-	"minecolonies_compatibility.interaction.no_lets_do_brewery_silo": "My work hut doesn't have any [Let's Do] Farm & Charm's Silo! Please place it so I have some I can use!",
+	"minecolonies_compatibility.interaction.no_lets_do_farm_and_charm_silo": "My work hut doesn't have any [Let's Do] Farm & Charm's Silo! Please place it so I have some I can use!",
 	
 	"_eof": "EOF"
 }
