@@ -13,8 +13,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.state.BlockState;
-import net.satisfy.farm_and_charm.block.entity.CraftingBowlBlockEntity;
-import net.satisfy.farm_and_charm.registry.ObjectRegistry;
+import net.satisfy.farm_and_charm.core.block.entity.CraftingBowlBlockEntity;
+import net.satisfy.farm_and_charm.core.registry.ObjectRegistry;
 import steve_gall.minecolonies_compatibility.core.common.util.InteractionMessageHelper;
 import steve_gall.minecolonies_letsdo.module.common.farm_and_charm.init.ModuleCraftingTypes;
 

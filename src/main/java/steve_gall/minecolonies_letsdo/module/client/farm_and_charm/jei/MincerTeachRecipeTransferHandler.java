@@ -9,8 +9,8 @@ import mezz.jei.api.recipe.transfer.IRecipeTransferHandlerHelper;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.MenuType;
-import net.satisfy.farm_and_charm.compat.jei.category.MincerCategory;
-import net.satisfy.farm_and_charm.recipe.MincerRecipe;
+import net.satisfy.farm_and_charm.core.compat.jei.category.MincerCategory;
+import net.satisfy.farm_and_charm.core.recipe.MincerRecipe;
 import steve_gall.minecolonies_compatibility.module.client.jei.TeachRecipeTransferHandler;
 import steve_gall.minecolonies_letsdo.module.common.farm_and_charm.menu.MincerTeachMenu;
 

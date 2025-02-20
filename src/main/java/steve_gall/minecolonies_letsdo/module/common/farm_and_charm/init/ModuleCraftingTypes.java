@@ -4,7 +4,7 @@ import com.minecolonies.api.crafting.registry.CraftingType;
 
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
-import net.satisfy.farm_and_charm.registry.RecipeTypeRegistry;
+import net.satisfy.farm_and_charm.core.registry.RecipeTypeRegistry;
 import steve_gall.minecolonies_compatibility.api.common.crafting.SimpleCraftingType;
 import steve_gall.minecolonies_letsdo.core.common.MineColoniesLetsDo;
 import steve_gall.minecolonies_letsdo.module.common.farm_and_charm.crafting.BowlGenericRecipe;

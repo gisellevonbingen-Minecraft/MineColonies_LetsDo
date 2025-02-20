@@ -8,8 +8,8 @@ import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
-import net.satisfy.bakery.recipe.BakingStationRecipe;
-import net.satisfy.bakery.registry.ObjectRegistry;
+import net.satisfy.bakery.core.recipe.BakingStationRecipe;
+import net.satisfy.bakery.core.registry.ObjectRegistry;
 import steve_gall.minecolonies_compatibility.api.common.crafting.SimpleGenericRecipe;
 
 public class BakingGenericRecipe extends SimpleGenericRecipe

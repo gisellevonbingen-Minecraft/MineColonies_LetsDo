@@ -3,7 +3,7 @@ package steve_gall.minecolonies_letsdo.module.client.bakery.jei;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.registration.IGuiHandlerRegistration;
 import mezz.jei.api.registration.IRecipeTransferRegistration;
-import net.satisfy.bakery.compat.jei.category.BakerStationCategory;
+import net.satisfy.bakery.core.compat.jei.category.BakerStationCategory;
 import steve_gall.minecolonies_letsdo.module.client.bakery.BakingTeachScreen;
 import steve_gall.minecolonies_letsdo.module.client.jei.AbstractModulePlugin;
 import steve_gall.minecolonies_letsdo.module.common.ModuleManager;

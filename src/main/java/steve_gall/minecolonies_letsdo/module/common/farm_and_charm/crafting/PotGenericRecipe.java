@@ -9,15 +9,15 @@ import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
-import net.satisfy.farm_and_charm.recipe.CookingPotRecipe;
-import net.satisfy.farm_and_charm.registry.ObjectRegistry;
+import net.satisfy.farm_and_charm.core.recipe.CookingPotRecipe;
+import net.satisfy.farm_and_charm.core.registry.ObjectRegistry;
 import steve_gall.minecolonies_compatibility.api.common.crafting.SimpleContainerGenericRecipe;
 
 public class PotGenericRecipe extends SimpleContainerGenericRecipe
 {
 	public PotGenericRecipe(CookingPotRecipe recipe, RegistryAccess registryAccess)
 	{
-		super(recipe, Arrays.asList(recipe.getContainer()), registryAccess);
+		super(recipe, Arrays.asList(recipe.getContainerItem()), registryAccess);
 	}
 
 	public PotGenericRecipe(ResourceLocation recipeId, List<List<ItemStack>> ingredients, List<ItemStack> container, ItemStack output)

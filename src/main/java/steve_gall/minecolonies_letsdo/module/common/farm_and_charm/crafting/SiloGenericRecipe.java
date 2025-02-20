@@ -8,8 +8,8 @@ import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
-import net.satisfy.farm_and_charm.recipe.SiloRecipe;
-import net.satisfy.farm_and_charm.registry.ObjectRegistry;
+import net.satisfy.farm_and_charm.core.recipe.SiloRecipe;
+import net.satisfy.farm_and_charm.core.registry.ObjectRegistry;
 import steve_gall.minecolonies_compatibility.api.common.crafting.SimpleGenericRecipe;
 
 public class SiloGenericRecipe extends SimpleGenericRecipe

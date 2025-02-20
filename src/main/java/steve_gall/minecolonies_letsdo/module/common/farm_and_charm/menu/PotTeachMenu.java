@@ -12,8 +12,8 @@ import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeType;
-import net.satisfy.farm_and_charm.recipe.CookingPotRecipe;
-import net.satisfy.farm_and_charm.registry.RecipeTypeRegistry;
+import net.satisfy.farm_and_charm.core.recipe.CookingPotRecipe;
+import net.satisfy.farm_and_charm.core.registry.RecipeTypeRegistry;
 import steve_gall.minecolonies_compatibility.api.common.inventory.IMenuRecipeValidator;
 import steve_gall.minecolonies_compatibility.api.common.inventory.MenuRecipeValidatorRecipe;
 import steve_gall.minecolonies_compatibility.core.common.inventory.TeachContainer;
@@ -106,7 +106,7 @@ public class PotTeachMenu extends FarmAndCharmTeachMenu<CookingPotRecipe>
 	protected void onRecipeChanged()
 	{
 		this.resultContainer.setItem(0, this.recipe != null ? this.recipe.getResultItem(this.inventory.player.level().registryAccess()) : ItemStack.EMPTY);
-		this.resultContainer.setItem(1, this.recipe != null ? this.recipe.getContainer() : ItemStack.EMPTY);
+		this.resultContainer.setItem(1, this.recipe != null ? this.recipe.getContainerItem() : ItemStack.EMPTY);
 	}
 
 	@Override

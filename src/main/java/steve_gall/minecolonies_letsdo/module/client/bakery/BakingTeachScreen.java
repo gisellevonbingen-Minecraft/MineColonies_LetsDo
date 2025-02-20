@@ -8,7 +8,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
-import net.satisfy.bakery.recipe.BakingStationRecipe;
+import net.satisfy.bakery.core.recipe.BakingStationRecipe;
 import steve_gall.minecolonies_compatibility.core.client.gui.TeachRecipeScreen;
 import steve_gall.minecolonies_letsdo.core.common.MineColoniesLetsDo;
 import steve_gall.minecolonies_letsdo.module.common.bakery.crafting.BakingRecipeStorage;
