@@ -6,7 +6,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import com.minecolonies.api.colony.buildings.modules.IBuildingModule;
-import com.minecolonies.api.crafting.registry.CraftingType;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
@@ -26,7 +25,6 @@ import steve_gall.minecolonies_compatibility.core.common.inventory.TeachRecipeMe
 import steve_gall.minecolonies_compatibility.core.common.inventory.TeachResultSlot;
 import steve_gall.minecolonies_letsdo.module.common.farm_and_charm.building.modules.SiloCraftingModule;
 import steve_gall.minecolonies_letsdo.module.common.farm_and_charm.building.modules.SiloCraftingModuleView;
-import steve_gall.minecolonies_letsdo.module.common.farm_and_charm.init.ModuleCraftingTypes;
 import steve_gall.minecolonies_letsdo.module.common.farm_and_charm.init.ModuleMenuTypes;
 
 public class SiloTeachMenu extends TeachRecipeMenu<SiloRecipe>
@@ -102,7 +100,7 @@ public class SiloTeachMenu extends TeachRecipeMenu<SiloRecipe>
 	{
 		this.resultContainer.setItem(0, this.recipe != null ? this.recipe.getResultItem(this.inventory.player.level().registryAccess()) : ItemStack.EMPTY);
 	}
-	
+
 	@Override
 	public @Nullable Component getRecipeError(@NotNull SiloRecipe recipe)
 	{
@@ -110,19 +108,13 @@ public class SiloTeachMenu extends TeachRecipeMenu<SiloRecipe>
 		{
 			return Component.translatable("minecolonies_letsdo.text.unsupported_recipe");
 		}
-		
+
 		return super.getRecipeError(recipe);
 	}
 
 	public boolean isOutputCompatible(ItemStack output)
 	{
 		return this.isOutputCompatible.test(output);
-	}
-	
-	@Override
-	public CraftingType getCraftingType()
-	{
-		return ModuleCraftingTypes.SILO.get();
 	}
 
 }

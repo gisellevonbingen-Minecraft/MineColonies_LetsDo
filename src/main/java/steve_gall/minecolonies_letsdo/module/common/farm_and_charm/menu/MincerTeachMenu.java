@@ -6,7 +6,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import com.minecolonies.api.colony.buildings.modules.IBuildingModule;
-import com.minecolonies.api.crafting.registry.CraftingType;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
@@ -26,7 +25,6 @@ import steve_gall.minecolonies_compatibility.core.common.inventory.TeachRecipeMe
 import steve_gall.minecolonies_compatibility.core.common.inventory.TeachResultSlot;
 import steve_gall.minecolonies_letsdo.module.common.farm_and_charm.building.modules.MincerCraftingModule;
 import steve_gall.minecolonies_letsdo.module.common.farm_and_charm.building.modules.MincerCraftingModuleView;
-import steve_gall.minecolonies_letsdo.module.common.farm_and_charm.init.ModuleCraftingTypes;
 import steve_gall.minecolonies_letsdo.module.common.farm_and_charm.init.ModuleMenuTypes;
 
 public class MincerTeachMenu extends TeachRecipeMenu<MincerRecipe>
@@ -117,12 +115,6 @@ public class MincerTeachMenu extends TeachRecipeMenu<MincerRecipe>
 	public boolean isOutputCompatible(ItemStack output)
 	{
 		return this.isOutputCompatible.test(output);
-	}
-
-	@Override
-	public CraftingType getCraftingType()
-	{
-		return ModuleCraftingTypes.MINCER.get();
 	}
 
 }

@@ -77,6 +77,7 @@ public class ModuleBuildingModules
 	public static final BuildingEntry.ModuleProducer<SiloCraftingModule, SiloCraftingModuleView> FARMER_SILO = new BuildingEntry.ModuleProducer<>("farmer_lets_do_farm_and_charm_silo", //
 			() -> new SiloCraftingModule(ModJobs.farmer.get())
 			{
+				@Override
 				public boolean isOutputCompatible(ItemStack output)
 				{
 					return output.is(ModuleTags.Items.FARMER_SILO_PRODUCT);

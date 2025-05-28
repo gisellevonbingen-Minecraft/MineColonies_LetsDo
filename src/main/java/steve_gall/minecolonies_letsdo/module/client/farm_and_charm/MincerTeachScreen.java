@@ -3,19 +3,21 @@ package steve_gall.minecolonies_letsdo.module.client.farm_and_charm;
 import java.util.List;
 
 import com.minecolonies.api.crafting.ItemStorage;
+import com.minecolonies.api.crafting.registry.CraftingType;
 
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.satisfy.farm_and_charm.core.recipe.MincerRecipe;
-import steve_gall.minecolonies_compatibility.core.client.gui.TeachRecipeScreen;
+import steve_gall.minecolonies_compatibility.core.client.gui.TeachCraftingRecipeScreen;
 import steve_gall.minecolonies_letsdo.core.common.MineColoniesLetsDo;
 import steve_gall.minecolonies_letsdo.module.common.farm_and_charm.crafting.MincerRecipeStorage;
+import steve_gall.minecolonies_letsdo.module.common.farm_and_charm.init.ModuleCraftingTypes;
 import steve_gall.minecolonies_letsdo.module.common.farm_and_charm.menu.MincerTeachMenu;
 import steve_gall.minecolonies_tweaks.api.common.crafting.ICustomizedRecipeStorage;
 
-public class MincerTeachScreen extends TeachRecipeScreen<MincerTeachMenu, MincerRecipe>
+public class MincerTeachScreen extends TeachCraftingRecipeScreen<MincerTeachMenu, MincerRecipe>
 {
 	public static final ResourceLocation TEXTURE = MineColoniesLetsDo.rl("textures/gui/farm_and_charm_mincer_teach.png");
 
@@ -25,6 +27,12 @@ public class MincerTeachScreen extends TeachRecipeScreen<MincerTeachMenu, Mincer
 
 		this.imageWidth = 176;
 		this.imageHeight = 166;
+	}
+
+	@Override
+	public CraftingType getCraftingType()
+	{
+		return ModuleCraftingTypes.MINCER.get();
 	}
 
 	@Override
