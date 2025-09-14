@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.function.BiFunction;
 import java.util.function.Supplier;
 
+import steve_gall.minecolonies_compatibility.module.common.AbstractModule;
+import steve_gall.minecolonies_compatibility.module.common.OptionalModule;
 import steve_gall.minecolonies_letsdo.module.common.bakery.BakeryModule;
 import steve_gall.minecolonies_letsdo.module.common.brewery.BreweryModule;
 import steve_gall.minecolonies_letsdo.module.common.farm_and_charm.FarmAndCharmModule;

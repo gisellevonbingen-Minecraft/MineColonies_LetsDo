@@ -4,6 +4,7 @@ import org.jetbrains.annotations.NotNull;
 
 import com.minecolonies.api.colony.buildings.modules.IBuildingModule;
 
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
@@ -34,7 +35,7 @@ public class RoasterTeachMenu extends TeachRecipeMenu<RoasterRecipe>
 
 	public static final int RESULT_X = 120;
 	public static final int RESULT_Y = 28;
-	public static final int CONTAINER_X = 91;
+	public static final int CONTAINER_X = 92;
 	public static final int CONTAINER_Y = 55;
 
 	public RoasterTeachMenu(int windowId, Inventory inventory, IBuildingModule module)
@@ -102,9 +103,9 @@ public class RoasterTeachMenu extends TeachRecipeMenu<RoasterRecipe>
 	}
 
 	@Override
-	protected void onRecipeChanged()
+	protected void onRecipeChanged(RegistryAccess registryAccess)
 	{
-		this.resultContainer.setItem(0, this.recipe != null ? this.recipe.getResultItem(this.inventory.player.level().registryAccess()) : ItemStack.EMPTY);
+		this.resultContainer.setItem(0, this.recipe != null ? this.recipe.getResultItem(registryAccess) : ItemStack.EMPTY);
 		this.resultContainer.setItem(1, this.recipe != null ? this.recipe.getContainer() : ItemStack.EMPTY);
 	}
 

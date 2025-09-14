@@ -9,15 +9,14 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import steve_gall.minecolonies_letsdo.core.common.network.NetworkChannel;
 import steve_gall.minecolonies_letsdo.module.common.ModuleManager;
+import steve_gall.minecolonies_tweaks.api.common.network.NetworkChannel;
 
 @Mod(MineColoniesLetsDo.MOD_ID)
 public class MineColoniesLetsDo
 {
 	public static final String MOD_ID = "minecolonies_letsdo";
 	public static final Logger LOGGER = LogManager.getLogger();
-
 	private static NetworkChannel NETWORK;
 
 	public MineColoniesLetsDo()
@@ -28,7 +27,7 @@ public class MineColoniesLetsDo
 
 		var forge_bus = MinecraftForge.EVENT_BUS;
 
-		NETWORK = new NetworkChannel("main");
+		NETWORK = new NetworkChannel(MOD_ID, "main");
 		ModuleManager.initialize();
 	}
 

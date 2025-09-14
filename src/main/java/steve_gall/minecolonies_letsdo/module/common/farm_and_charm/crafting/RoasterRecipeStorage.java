@@ -2,6 +2,7 @@ package steve_gall.minecolonies_letsdo.module.common.farm_and_charm.crafting;
 
 import java.util.List;
 
+import com.minecolonies.api.colony.requestsystem.factory.IFactoryController;
 import com.minecolonies.api.crafting.ItemStorage;
 
 import net.minecraft.nbt.CompoundTag;
@@ -14,9 +15,9 @@ public class RoasterRecipeStorage extends SimpleContainerRecipeStorage<RoasterGe
 {
 	public static final ResourceLocation ID = MineColoniesLetsDo.rl("farm_and_charm_roaster");
 
-	public RoasterRecipeStorage(CompoundTag tag)
+	public RoasterRecipeStorage(IFactoryController controller, CompoundTag tag)
 	{
-		super(tag);
+		super(controller, tag);
 	}
 
 	public RoasterRecipeStorage(ResourceLocation recipeId, List<ItemStorage> ingredients, ItemStorage container, ItemStack output)

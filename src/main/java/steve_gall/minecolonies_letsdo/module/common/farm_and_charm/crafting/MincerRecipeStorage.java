@@ -2,6 +2,7 @@ package steve_gall.minecolonies_letsdo.module.common.farm_and_charm.crafting;
 
 import java.util.List;
 
+import com.minecolonies.api.colony.requestsystem.factory.IFactoryController;
 import com.minecolonies.api.crafting.ItemStorage;
 
 import net.minecraft.nbt.CompoundTag;
@@ -14,9 +15,9 @@ public class MincerRecipeStorage extends SimpleRecipeStorage<MincerGenericRecipe
 {
 	public static final ResourceLocation ID = MineColoniesLetsDo.rl("farm_and_charm_mincer");
 
-	public MincerRecipeStorage(CompoundTag tag)
+	public MincerRecipeStorage(IFactoryController controller, CompoundTag tag)
 	{
-		super(tag);
+		super(controller, tag);
 	}
 
 	public MincerRecipeStorage(ResourceLocation recipeId, List<ItemStorage> ingredients, ItemStack output)

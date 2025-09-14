@@ -9,15 +9,15 @@ import net.satisfy.farm_and_charm.core.compat.jei.category.MincerCategory;
 import net.satisfy.farm_and_charm.core.compat.jei.category.RoasterCategory;
 import net.satisfy.farm_and_charm.core.compat.jei.category.SiloCategory;
 import net.satisfy.farm_and_charm.core.compat.jei.category.StoveCategory;
+import steve_gall.minecolonies_compatibility.module.client.jei.AbstractModulePlugin;
+import steve_gall.minecolonies_compatibility.module.common.OptionalModule;
 import steve_gall.minecolonies_letsdo.module.client.farm_and_charm.BowlTeachScreen;
 import steve_gall.minecolonies_letsdo.module.client.farm_and_charm.MincerTeachScreen;
 import steve_gall.minecolonies_letsdo.module.client.farm_and_charm.PotTeachScreen;
 import steve_gall.minecolonies_letsdo.module.client.farm_and_charm.RoasterTeachScreen;
 import steve_gall.minecolonies_letsdo.module.client.farm_and_charm.SiloTeachScreen;
 import steve_gall.minecolonies_letsdo.module.client.farm_and_charm.StoveTeachScreen;
-import steve_gall.minecolonies_letsdo.module.client.jei.AbstractModulePlugin;
 import steve_gall.minecolonies_letsdo.module.common.ModuleManager;
-import steve_gall.minecolonies_letsdo.module.common.OptionalModule;
 
 @JeiPlugin
 public class ModulePlugin extends AbstractModulePlugin

@@ -10,6 +10,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.ForgeRegistries;
 import steve_gall.minecolonies_compatibility.api.common.plant.CustomizedCrop;
+import steve_gall.minecolonies_compatibility.module.common.AbstractModule;
 import steve_gall.minecolonies_letsdo.core.common.MineColoniesLetsDo;
 import steve_gall.minecolonies_letsdo.module.client.farm_and_charm.BowlTeachScreen;
 import steve_gall.minecolonies_letsdo.module.client.farm_and_charm.MincerTeachScreen;
@@ -17,7 +18,6 @@ import steve_gall.minecolonies_letsdo.module.client.farm_and_charm.PotTeachScree
 import steve_gall.minecolonies_letsdo.module.client.farm_and_charm.RoasterTeachScreen;
 import steve_gall.minecolonies_letsdo.module.client.farm_and_charm.SiloTeachScreen;
 import steve_gall.minecolonies_letsdo.module.client.farm_and_charm.StoveTeachScreen;
-import steve_gall.minecolonies_letsdo.module.common.AbstractModule;
 import steve_gall.minecolonies_letsdo.module.common.ModuleManager;
 import steve_gall.minecolonies_letsdo.module.common.farm_and_charm.crafting.BowlRecipeStorage;
 import steve_gall.minecolonies_letsdo.module.common.farm_and_charm.crafting.MincerRecipeStorage;
