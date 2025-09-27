@@ -5,9 +5,10 @@ import java.util.List;
 
 import org.jetbrains.annotations.NotNull;
 
-import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.block.Block;
 import net.satisfy.farm_and_charm.core.recipe.CookingPotRecipe;
 import net.satisfy.farm_and_charm.core.registry.ObjectRegistry;
@@ -15,9 +16,9 @@ import steve_gall.minecolonies_compatibility.api.common.crafting.SimpleContainer
 
 public class PotGenericRecipe extends SimpleContainerGenericRecipe
 {
-	public PotGenericRecipe(CookingPotRecipe recipe, RegistryAccess registryAccess)
+	public PotGenericRecipe(RecipeHolder<CookingPotRecipe> recipe, HolderLookup.Provider provider)
 	{
-		super(recipe, Arrays.asList(recipe.getContainerItem()), registryAccess);
+		super(recipe, Arrays.asList(recipe.value().getContainerItem()), provider);
 	}
 
 	public PotGenericRecipe(ResourceLocation recipeId, List<List<ItemStack>> ingredients, List<ItemStack> container, ItemStack output)

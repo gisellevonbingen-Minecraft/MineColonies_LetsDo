@@ -7,7 +7,7 @@ import com.minecolonies.api.colony.jobs.registry.JobEntry;
 import com.minecolonies.api.crafting.IGenericRecipe;
 import com.minecolonies.api.crafting.IRecipeStorage;
 
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.world.item.ItemStack;
 import steve_gall.minecolonies_compatibility.api.common.building.module.AbstractCraftingModuleWithExternalWorkingBlocks;
 import steve_gall.minecolonies_letsdo.module.common.farm_and_charm.FarmAndCharmModule;
@@ -47,7 +47,7 @@ public abstract class FarmAndCharmCraftingModule extends AbstractCraftingModuleW
 	}
 
 	@Override
-	public void serializeToView(@NotNull FriendlyByteBuf buf, boolean fullSync)
+	public void serializeToView(@NotNull RegistryFriendlyByteBuf buf, boolean fullSync)
 	{
 		super.serializeToView(buf, fullSync);
 

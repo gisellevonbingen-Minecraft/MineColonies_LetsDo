@@ -3,15 +3,13 @@ package steve_gall.minecolonies_letsdo.module.common.farm_and_charm;
 import com.minecolonies.api.colony.buildings.ModBuildings;
 import com.minecolonies.api.util.ItemStackUtils;
 
-import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.neoforged.fml.ModLoadingContext;
+import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import steve_gall.minecolonies_compatibility.api.common.plant.CustomizedCrop;
 import steve_gall.minecolonies_compatibility.module.common.AbstractModule;
-import steve_gall.minecolonies_letsdo.core.common.MineColoniesLetsDo;
 import steve_gall.minecolonies_letsdo.module.client.farm_and_charm.BowlTeachScreen;
 import steve_gall.minecolonies_letsdo.module.client.farm_and_charm.MincerTeachScreen;
 import steve_gall.minecolonies_letsdo.module.client.farm_and_charm.PotTeachScreen;
@@ -36,6 +34,7 @@ import steve_gall.minecolonies_letsdo.module.common.farm_and_charm.network.Roast
 import steve_gall.minecolonies_letsdo.module.common.farm_and_charm.network.SiloOpenTeachMessage;
 import steve_gall.minecolonies_letsdo.module.common.farm_and_charm.network.StoveOpenTeachMessage;
 import steve_gall.minecolonies_tweaks.api.common.crafting.CustomizedRecipeStorageRegistry;
+import steve_gall.minecolonies_tweaks.api.common.network.MessageRegistrar;
 
 public class FarmAndCharmModule extends AbstractModule
 {
@@ -44,17 +43,9 @@ public class FarmAndCharmModule extends AbstractModule
 	{
 		super.onLoad();
 
-		var fml_bus = FMLJavaModLoadingContext.get().getModEventBus();
+		var fml_bus = ModLoadingContext.get().getActiveContainer().getEventBus();
 		ModuleCraftingTypes.REGISTER.register(fml_bus);
 		ModuleMenuTypes.REGISTER.register(fml_bus);
-
-		var network = MineColoniesLetsDo.network();
-		network.registerMessage(StoveOpenTeachMessage.class, StoveOpenTeachMessage::new);
-		network.registerMessage(BowlOpenTeachMessage.class, BowlOpenTeachMessage::new);
-		network.registerMessage(PotOpenTeachMessage.class, PotOpenTeachMessage::new);
-		network.registerMessage(MincerOpenTeachMessage.class, MincerOpenTeachMessage::new);
-		network.registerMessage(RoasterOpenTeachMessage.class, RoasterOpenTeachMessage::new);
-		network.registerMessage(SiloOpenTeachMessage.class, SiloOpenTeachMessage::new);
 
 		CustomizedRecipeStorageRegistry.INSTANCE.register(StoveRecipeStorage.ID, StoveRecipeStorage::serialize, StoveRecipeStorage::new);
 		CustomizedRecipeStorageRegistry.INSTANCE.register(BowlRecipeStorage.ID, BowlRecipeStorage::serialize, BowlRecipeStorage::new);
@@ -84,20 +75,34 @@ public class FarmAndCharmModule extends AbstractModule
 	}
 
 	@Override
-	protected void onFMLClientSetup(FMLClientSetupEvent e)
+	protected void onRegisterMenuScreens(RegisterMenuScreensEvent e)
 	{
-		super.onFMLClientSetup(e);
-		MenuScreens.register(ModuleMenuTypes.STOVE_TEACH.get(), StoveTeachScreen::new);
-		MenuScreens.register(ModuleMenuTypes.BOWL_TEACH.get(), BowlTeachScreen::new);
-		MenuScreens.register(ModuleMenuTypes.POT_TEACH.get(), PotTeachScreen::new);
-		MenuScreens.register(ModuleMenuTypes.MINCER_TEACH.get(), MincerTeachScreen::new);
-		MenuScreens.register(ModuleMenuTypes.ROASTER_TEACH.get(), RoasterTeachScreen::new);
-		MenuScreens.register(ModuleMenuTypes.SILO_TEACH.get(), SiloTeachScreen::new);
+		super.onRegisterMenuScreens(e);
+
+		e.register(ModuleMenuTypes.STOVE_TEACH.get(), StoveTeachScreen::new);
+		e.register(ModuleMenuTypes.BOWL_TEACH.get(), BowlTeachScreen::new);
+		e.register(ModuleMenuTypes.POT_TEACH.get(), PotTeachScreen::new);
+		e.register(ModuleMenuTypes.MINCER_TEACH.get(), MincerTeachScreen::new);
+		e.register(ModuleMenuTypes.ROASTER_TEACH.get(), RoasterTeachScreen::new);
+		e.register(ModuleMenuTypes.SILO_TEACH.get(), SiloTeachScreen::new);
+	}
+
+	@Override
+	protected void onRegisterNetwork(MessageRegistrar channel)
+	{
+		super.onRegisterNetwork(channel);
+
+		channel.playToServer(StoveOpenTeachMessage.TYPE, StoveOpenTeachMessage::new);
+		channel.playToServer(BowlOpenTeachMessage.TYPE, BowlOpenTeachMessage::new);
+		channel.playToServer(PotOpenTeachMessage.TYPE, PotOpenTeachMessage::new);
+		channel.playToServer(MincerOpenTeachMessage.TYPE, MincerOpenTeachMessage::new);
+		channel.playToServer(RoasterOpenTeachMessage.TYPE, RoasterOpenTeachMessage::new);
+		channel.playToServer(SiloOpenTeachMessage.TYPE, SiloOpenTeachMessage::new);
 	}
 
 	public static boolean isFromBakery(ItemStack output)
 	{
-		return output.is(ModuleTags.Items.BAKERY_OUTPUT) || ForgeRegistries.ITEMS.getKey(output.getItem()).getNamespace().equals(ModuleManager.BAKERY.getModId());
+		return output.is(ModuleTags.Items.BAKERY_OUTPUT) || BuiltInRegistries.ITEM.getKey(output.getItem()).getNamespace().equals(ModuleManager.BAKERY.getModId());
 	}
 
 	public static boolean testBakery(boolean isBakery, ItemStack output)

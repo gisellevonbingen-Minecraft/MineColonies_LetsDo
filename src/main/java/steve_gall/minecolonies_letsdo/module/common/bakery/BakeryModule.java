@@ -2,12 +2,10 @@ package steve_gall.minecolonies_letsdo.module.common.bakery;
 
 import com.minecolonies.api.colony.buildings.ModBuildings;
 
-import net.minecraft.client.gui.screens.MenuScreens;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.neoforged.fml.ModLoadingContext;
+import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import steve_gall.minecolonies_compatibility.module.common.AbstractModule;
-import steve_gall.minecolonies_letsdo.core.common.MineColoniesLetsDo;
 import steve_gall.minecolonies_letsdo.module.client.bakery.BakingTeachScreen;
 import steve_gall.minecolonies_letsdo.module.common.bakery.crafting.BakingRecipeStorage;
 import steve_gall.minecolonies_letsdo.module.common.bakery.init.ModuleBuildingModules;
@@ -15,6 +13,7 @@ import steve_gall.minecolonies_letsdo.module.common.bakery.init.ModuleCraftingTy
 import steve_gall.minecolonies_letsdo.module.common.bakery.init.ModuleMenuTypes;
 import steve_gall.minecolonies_letsdo.module.common.bakery.network.BakingOpenTeachMessage;
 import steve_gall.minecolonies_tweaks.api.common.crafting.CustomizedRecipeStorageRegistry;
+import steve_gall.minecolonies_tweaks.api.common.network.MessageRegistrar;
 
 public class BakeryModule extends AbstractModule
 {
@@ -23,12 +22,9 @@ public class BakeryModule extends AbstractModule
 	{
 		super.onLoad();
 
-		var fml_bus = FMLJavaModLoadingContext.get().getModEventBus();
+		var fml_bus = ModLoadingContext.get().getActiveContainer().getEventBus();
 		ModuleCraftingTypes.REGISTER.register(fml_bus);
 		ModuleMenuTypes.REGISTER.register(fml_bus);
-
-		var network = MineColoniesLetsDo.network();
-		network.registerMessage(BakingOpenTeachMessage.class, BakingOpenTeachMessage::new);
 
 		CustomizedRecipeStorageRegistry.INSTANCE.register(BakingRecipeStorage.ID, BakingRecipeStorage::serialize, BakingRecipeStorage::new);
 	}
@@ -47,11 +43,19 @@ public class BakeryModule extends AbstractModule
 	}
 
 	@Override
-	protected void onFMLClientSetup(FMLClientSetupEvent e)
+	protected void onRegisterMenuScreens(RegisterMenuScreensEvent e)
 	{
-		super.onFMLClientSetup(e);
+		super.onRegisterMenuScreens(e);
 
-		MenuScreens.register(ModuleMenuTypes.BAKING_TEACH.get(), BakingTeachScreen::new);
+		e.register(ModuleMenuTypes.BAKING_TEACH.get(), BakingTeachScreen::new);
+	}
+
+	@Override
+	protected void onRegisterNetwork(MessageRegistrar channel)
+	{
+		super.onRegisterNetwork(channel);
+
+		channel.playToServer(BakingOpenTeachMessage.TYPE, BakingOpenTeachMessage::new);
 	}
 
 }

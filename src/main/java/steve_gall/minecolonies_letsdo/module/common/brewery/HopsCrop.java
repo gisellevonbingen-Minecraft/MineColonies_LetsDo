@@ -11,7 +11,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
-import net.satisfy.brewery.core.block.HopsCropBlock;
+import net.satisfy.brewery.core.block.HopsCropHeadBlock;
 import net.satisfy.brewery.core.registry.ObjectRegistry;
 import steve_gall.minecolonies_compatibility.api.common.plant.CustomizedCrop;
 import steve_gall.minecolonies_compatibility.api.common.plant.HarvesterContext;
@@ -31,7 +31,7 @@ public class HopsCrop extends CustomizedCrop
 	@Override
 	public boolean isCrop(@NotNull PlantBlockContext context)
 	{
-		return context.getState().getBlock() instanceof HopsCropBlock;
+		return context.getState().getBlock() instanceof HopsCropHeadBlock;
 	}
 
 	@Override
@@ -60,9 +60,9 @@ public class HopsCrop extends CustomizedCrop
 		{
 			var state = context.getLevel().getBlockState(pos);
 
-			if (state.getBlock() instanceof HopsCropBlock)
+			if (state.getBlock() instanceof HopsCropHeadBlock)
 			{
-				if (state.getValue(HopsCropBlock.AGE) >= MAX_AGE)
+				if (state.getValue(HopsCropHeadBlock.AGE) >= MAX_AGE)
 				{
 					return pos;
 				}
@@ -92,7 +92,7 @@ public class HopsCrop extends CustomizedCrop
 			var amount = level.getRandom().nextInt(2) + 1;
 			var drop = new ItemStack(ObjectRegistry.HOPS.get(), amount);
 
-			level.setBlock(pos, state.setValue(HopsCropBlock.AGE, 1), Block.UPDATE_CLIENTS);
+			level.setBlock(pos, state.setValue(HopsCropHeadBlock.AGE, 1), Block.UPDATE_CLIENTS);
 			return Collections.singletonList(drop);
 		}
 

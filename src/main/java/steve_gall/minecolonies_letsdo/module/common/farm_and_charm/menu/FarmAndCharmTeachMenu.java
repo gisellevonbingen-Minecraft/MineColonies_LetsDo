@@ -7,17 +7,19 @@ import org.jetbrains.annotations.Nullable;
 
 import com.minecolonies.api.colony.buildings.modules.IBuildingModule;
 
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.RecipeInput;
 import steve_gall.minecolonies_compatibility.core.common.inventory.TeachRecipeMenu;
 import steve_gall.minecolonies_letsdo.module.common.farm_and_charm.building.modules.FarmAndCharmCraftingModule;
 import steve_gall.minecolonies_letsdo.module.common.farm_and_charm.building.modules.FarmAndCharmCraftingModuleView;
 
-public abstract class FarmAndCharmTeachMenu<RECIPE extends Recipe<?>> extends TeachRecipeMenu<RECIPE>
+public abstract class FarmAndCharmTeachMenu<RECIPE extends Recipe<RECIPE_INPUT>, RECIPE_INPUT extends RecipeInput> extends TeachRecipeMenu<RecipeHolder<RECIPE>, RECIPE_INPUT>
 {
 	private final Predicate<ItemStack> isOutputCompatible;
 
@@ -28,7 +30,7 @@ public abstract class FarmAndCharmTeachMenu<RECIPE extends Recipe<?>> extends Te
 		this.isOutputCompatible = ((FarmAndCharmCraftingModule) module)::isOutputCompatible;
 	}
 
-	public FarmAndCharmTeachMenu(MenuType<?> menuType, int windowId, Inventory inventory, FriendlyByteBuf buffer)
+	public FarmAndCharmTeachMenu(MenuType<?> menuType, int windowId, Inventory inventory, RegistryFriendlyByteBuf buffer)
 	{
 		super(menuType, windowId, inventory, buffer);
 
@@ -36,9 +38,9 @@ public abstract class FarmAndCharmTeachMenu<RECIPE extends Recipe<?>> extends Te
 	}
 
 	@Override
-	public @Nullable Component getRecipeError(@NotNull RECIPE recipe)
+	public @Nullable Component getRecipeError(@NotNull RecipeHolder<RECIPE> recipe)
 	{
-		if (!this.isOutputCompatible(recipe.getResultItem(this.inventory.player.level().registryAccess())))
+		if (!this.isOutputCompatible(recipe.value().getResultItem(this.inventory.player.level().registryAccess())))
 		{
 			return Component.translatable("minecolonies_letsdo.text.unsupported_recipe");
 		}

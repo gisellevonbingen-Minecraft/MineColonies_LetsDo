@@ -4,30 +4,31 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.neoforged.fml.ModList;
+import net.neoforged.fml.ModLoadingContext;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import steve_gall.minecolonies_letsdo.module.common.ModuleManager;
-import steve_gall.minecolonies_tweaks.api.common.network.NetworkChannel;
+import steve_gall.minecolonies_tweaks.api.common.network.MessageRegistrar;
 
 @Mod(MineColoniesLetsDo.MOD_ID)
 public class MineColoniesLetsDo
 {
 	public static final String MOD_ID = "minecolonies_letsdo";
 	public static final Logger LOGGER = LogManager.getLogger();
-	private static NetworkChannel NETWORK;
 
 	public MineColoniesLetsDo()
 	{
-		var fml_bus = FMLJavaModLoadingContext.get().getModEventBus();
+		var fml_bus = ModLoadingContext.get().getActiveContainer().getEventBus();
 		fml_bus.addListener(this::onFMLCommonSetup);
 		fml_bus.addListener(this::onFMLClientSetup);
+		fml_bus.addListener(this::onRegisterPayloadHandlers);
 
-		var forge_bus = MinecraftForge.EVENT_BUS;
+		var forge_bus = NeoForge.EVENT_BUS;
 
-		NETWORK = new NetworkChannel(MOD_ID, "main");
 		ModuleManager.initialize();
 	}
 
@@ -43,14 +44,16 @@ public class MineColoniesLetsDo
 
 	}
 
-	public static NetworkChannel network()
+	private void onRegisterPayloadHandlers(RegisterPayloadHandlersEvent event)
 	{
-		return NETWORK;
+		var modVersion = ModList.get().getModContainerById(MOD_ID).get().getModInfo().getVersion().toString();
+		var registry = new MessageRegistrar(event.registrar(MOD_ID).versioned(modVersion));
+		ModuleManager.LOADED_MODULES.forEach(m -> m.onRegisterNetwork(registry));
 	}
 
 	public static ResourceLocation rl(String path)
 	{
-		return new ResourceLocation(MOD_ID, path);
+		return ResourceLocation.fromNamespaceAndPath(MOD_ID, path);
 	}
 
 	public static String tl(String path)

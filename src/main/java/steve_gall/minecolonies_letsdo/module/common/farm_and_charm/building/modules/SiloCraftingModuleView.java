@@ -3,7 +3,7 @@ package steve_gall.minecolonies_letsdo.module.common.farm_and_charm.building.mod
 import com.minecolonies.core.colony.buildings.moduleviews.CraftingModuleView;
 
 import net.minecraft.world.item.ItemStack;
-import steve_gall.minecolonies_letsdo.core.common.MineColoniesLetsDo;
+import net.neoforged.neoforge.network.PacketDistributor;
 import steve_gall.minecolonies_letsdo.module.common.farm_and_charm.network.SiloOpenTeachMessage;
 
 public class SiloCraftingModuleView extends CraftingModuleView
@@ -21,7 +21,7 @@ public class SiloCraftingModuleView extends CraftingModuleView
 	@Override
 	public void openCraftingGUI()
 	{
-		MineColoniesLetsDo.network().sendToServer(new SiloOpenTeachMessage(this));
+		PacketDistributor.sendToServer(new SiloOpenTeachMessage(this));
 	}
 
 }

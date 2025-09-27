@@ -4,7 +4,7 @@ import org.jetbrains.annotations.NotNull;
 
 import com.minecolonies.core.colony.buildings.moduleviews.CraftingModuleView;
 
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.world.item.ItemStack;
 import steve_gall.minecolonies_letsdo.module.common.farm_and_charm.FarmAndCharmModule;
 
@@ -23,7 +23,7 @@ public class FarmAndCharmCraftingModuleView extends CraftingModuleView
 	}
 
 	@Override
-	public void deserialize(@NotNull FriendlyByteBuf buf)
+	public void deserialize(@NotNull RegistryFriendlyByteBuf buf)
 	{
 		super.deserialize(buf);
 

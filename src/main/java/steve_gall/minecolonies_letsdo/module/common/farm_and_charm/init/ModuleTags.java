@@ -10,15 +10,15 @@ public class ModuleTags
 {
 	public static class Items
 	{
-		public static final TagKey<Item> SEEDS = forge("seeds");
+		public static final TagKey<Item> SEEDS = c("seeds");
 
 		public static final TagKey<Item> BAKERY_OUTPUT = create("bakery_output");
 		public static final TagKey<Item> CHEF_MINCER_PRODUCT = create("chef_mincer_product");
 		public static final TagKey<Item> FARMER_SILO_PRODUCT = create("farmer_silo_product");
 
-		public static TagKey<Item> forge(String path)
+		public static TagKey<Item> c(String path)
 		{
-			return ItemTags.create(new ResourceLocation("forge", path));
+			return ItemTags.create(ResourceLocation.fromNamespaceAndPath("c", path));
 		}
 
 		public static TagKey<Item> create(String path)

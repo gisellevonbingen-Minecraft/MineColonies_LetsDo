@@ -5,6 +5,7 @@ import java.util.List;
 import com.minecolonies.api.colony.requestsystem.factory.IFactoryController;
 import com.minecolonies.api.crafting.ItemStorage;
 
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -15,9 +16,9 @@ public class BowlRecipeStorage extends SimpleRecipeStorage<BowlGenericRecipe>
 {
 	public static final ResourceLocation ID = MineColoniesLetsDo.rl("farm_and_charm_bowl");
 
-	public BowlRecipeStorage(IFactoryController controller, CompoundTag tag)
+	public BowlRecipeStorage(HolderLookup.Provider provider, IFactoryController controller, CompoundTag tag)
 	{
-		super(controller, tag);
+		super(provider, controller, tag);
 	}
 
 	public BowlRecipeStorage(ResourceLocation recipeId, List<ItemStorage> ingredients, ItemStack output)

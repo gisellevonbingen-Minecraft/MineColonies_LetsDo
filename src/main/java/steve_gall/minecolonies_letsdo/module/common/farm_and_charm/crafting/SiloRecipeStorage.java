@@ -5,6 +5,7 @@ import java.util.List;
 import com.minecolonies.api.colony.requestsystem.factory.IFactoryController;
 import com.minecolonies.api.crafting.ItemStorage;
 
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -15,9 +16,9 @@ public class SiloRecipeStorage extends SimpleRecipeStorage<SiloGenericRecipe>
 {
 	public static final ResourceLocation ID = MineColoniesCompatibility.rl("farm_and_charm_silo");
 
-	public SiloRecipeStorage(IFactoryController controller, CompoundTag tag)
+	public SiloRecipeStorage(HolderLookup.Provider provider, IFactoryController controller, CompoundTag tag)
 	{
-		super(controller, tag);
+		super(provider, controller, tag);
 	}
 
 	public SiloRecipeStorage(ResourceLocation recipeId, List<ItemStorage> ingredients, ItemStack output)

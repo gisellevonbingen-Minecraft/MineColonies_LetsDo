@@ -2,7 +2,7 @@ package steve_gall.minecolonies_letsdo.module.common;
 
 import java.util.function.Supplier;
 
-import net.minecraftforge.fml.ModList;
+import net.neoforged.fml.ModList;
 import steve_gall.minecolonies_compatibility.module.common.AbstractModule;
 import steve_gall.minecolonies_compatibility.module.common.OptionalModule;
 import steve_gall.minecolonies_letsdo.core.common.MineColoniesLetsDo;

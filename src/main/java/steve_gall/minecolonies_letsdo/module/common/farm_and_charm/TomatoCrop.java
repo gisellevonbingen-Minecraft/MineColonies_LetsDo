@@ -11,7 +11,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
-import net.satisfy.farm_and_charm.core.block.crops.TomatoCropBlock;
+import net.satisfy.farm_and_charm.core.block.crops.TomatoCropHeadBlock;
 import net.satisfy.farm_and_charm.core.registry.ObjectRegistry;
 import steve_gall.minecolonies_compatibility.api.common.plant.CustomizedCrop;
 import steve_gall.minecolonies_compatibility.api.common.plant.HarvesterContext;
@@ -31,7 +31,7 @@ public class TomatoCrop extends CustomizedCrop
 	@Override
 	public boolean isCrop(@NotNull PlantBlockContext context)
 	{
-		return context.getState().getBlock() instanceof TomatoCropBlock;
+		return context.getState().getBlock() instanceof TomatoCropHeadBlock;
 	}
 
 	@Override
@@ -60,9 +60,9 @@ public class TomatoCrop extends CustomizedCrop
 		{
 			var state = context.getLevel().getBlockState(pos);
 
-			if (state.getBlock() instanceof TomatoCropBlock)
+			if (state.getBlock() instanceof TomatoCropHeadBlock)
 			{
-				if (state.getValue(TomatoCropBlock.AGE) >= MAX_AGE)
+				if (state.getValue(TomatoCropHeadBlock.AGE) >= MAX_AGE)
 				{
 					return pos;
 				}
@@ -97,7 +97,7 @@ public class TomatoCrop extends CustomizedCrop
 				drop = new ItemStack(ObjectRegistry.ROTTEN_TOMATO.get(), 1);
 			}
 
-			level.setBlock(pos, state.setValue(TomatoCropBlock.AGE, 1), Block.UPDATE_CLIENTS);
+			level.setBlock(pos, state.setValue(TomatoCropHeadBlock.AGE, 1), Block.UPDATE_CLIENTS);
 			return Collections.singletonList(drop);
 		}
 

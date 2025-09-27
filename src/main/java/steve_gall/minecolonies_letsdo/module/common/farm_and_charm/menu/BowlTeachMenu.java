@@ -1,17 +1,22 @@
 package steve_gall.minecolonies_letsdo.module.common.farm_and_charm.menu;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import com.minecolonies.api.colony.buildings.modules.IBuildingModule;
 
-import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.item.crafting.RecipeType;
+import net.neoforged.neoforge.items.wrapper.InvWrapper;
+import net.neoforged.neoforge.items.wrapper.RecipeWrapper;
 import net.satisfy.farm_and_charm.core.recipe.CraftingBowlRecipe;
 import net.satisfy.farm_and_charm.core.registry.RecipeTypeRegistry;
 import steve_gall.minecolonies_compatibility.api.common.inventory.IMenuRecipeValidator;
@@ -20,9 +25,11 @@ import steve_gall.minecolonies_compatibility.core.common.inventory.TeachContaine
 import steve_gall.minecolonies_compatibility.core.common.inventory.TeachInputSlot;
 import steve_gall.minecolonies_compatibility.core.common.inventory.TeachResultSlot;
 import steve_gall.minecolonies_compatibility.core.common.util.NBTUtils2;
+import steve_gall.minecolonies_letsdo.core.common.crafting.RecipeHelper;
 import steve_gall.minecolonies_letsdo.module.common.farm_and_charm.init.ModuleMenuTypes;
+import steve_gall.minecolonies_tweaks.core.common.item.ItemSerializationHelper;
 
-public class BowlTeachMenu extends FarmAndCharmTeachMenu<CraftingBowlRecipe>
+public class BowlTeachMenu extends FarmAndCharmTeachMenu<CraftingBowlRecipe, RecipeInput>
 {
 	public static final int INVENTORY_X = 8;
 	public static final int INVENTORY_Y = 84;
@@ -43,7 +50,7 @@ public class BowlTeachMenu extends FarmAndCharmTeachMenu<CraftingBowlRecipe>
 		this.setup();
 	}
 
-	public BowlTeachMenu(int windowId, Inventory inventory, FriendlyByteBuf buffer)
+	public BowlTeachMenu(int windowId, Inventory inventory, RegistryFriendlyByteBuf buffer)
 	{
 		super(ModuleMenuTypes.BOWL_TEACH.get(), windowId, inventory, buffer);
 		this.setup();
@@ -67,7 +74,7 @@ public class BowlTeachMenu extends FarmAndCharmTeachMenu<CraftingBowlRecipe>
 	}
 
 	@Override
-	protected IMenuRecipeValidator<CraftingBowlRecipe> createRecipeValidator()
+	protected IMenuRecipeValidator<RecipeHolder<CraftingBowlRecipe>, RecipeInput> createRecipeValidator()
 	{
 		return new MenuRecipeValidatorRecipe<>(this.inventory.player.level())
 		{
@@ -78,20 +85,26 @@ public class BowlTeachMenu extends FarmAndCharmTeachMenu<CraftingBowlRecipe>
 			}
 
 			@Override
-			protected boolean test(CraftingBowlRecipe recipe, Container container, ServerPlayer player)
+			public @NotNull RecipeInput getInput(@NotNull Container container, @Nullable RecipeHolder<CraftingBowlRecipe> recipe)
 			{
-				return this.matchesWithIngredientsCount(recipe, container);
+				return new RecipeWrapper(new InvWrapper(container));
+			}
+
+			@Override
+			protected boolean test(RecipeHolder<CraftingBowlRecipe> recipe, Container container, ServerPlayer player)
+			{
+				return super.test(recipe, container, player) && RecipeHelper.matchesIngredientCount(recipe.value(), container);
 			}
 
 		};
 	}
 
 	@Override
-	protected void setContainerByTransfer(@NotNull CraftingBowlRecipe recipe, @NotNull CompoundTag payload)
+	protected void setContainerByTransfer(@NotNull HolderLookup.Provider provider, @NotNull RecipeHolder<CraftingBowlRecipe> recipe, @NotNull CompoundTag payload)
 	{
-		super.setContainerByTransfer(recipe, payload);
+		super.setContainerByTransfer(provider, recipe, payload);
 
-		var input = NBTUtils2.deserializeList(payload, "input", ItemStack::of);
+		var input = NBTUtils2.deserializeList(payload, "input", ItemSerializationHelper.deserializerTag(provider));
 
 		for (var i = 0; i < CRAFTING_SLOTS; i++)
 		{
@@ -101,9 +114,9 @@ public class BowlTeachMenu extends FarmAndCharmTeachMenu<CraftingBowlRecipe>
 	}
 
 	@Override
-	protected void onRecipeChanged(RegistryAccess registryAccess)
+	protected void onRecipeChanged(HolderLookup.Provider provider, RecipeInput input)
 	{
-		this.resultContainer.setItem(0, this.recipe != null ? this.recipe.getResultItem(registryAccess) : ItemStack.EMPTY);
+		this.resultContainer.setItem(0, this.recipe != null ? this.recipe.value().getResultItem(provider) : ItemStack.EMPTY);
 	}
 
 }

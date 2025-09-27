@@ -1,17 +1,22 @@
 package steve_gall.minecolonies_letsdo.module.common.farm_and_charm.menu;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import com.minecolonies.api.colony.buildings.modules.IBuildingModule;
 
-import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.item.crafting.RecipeType;
+import net.neoforged.neoforge.items.wrapper.InvWrapper;
+import net.neoforged.neoforge.items.wrapper.RecipeWrapper;
 import net.satisfy.farm_and_charm.core.recipe.RoasterRecipe;
 import net.satisfy.farm_and_charm.core.registry.RecipeTypeRegistry;
 import steve_gall.minecolonies_compatibility.api.common.inventory.IMenuRecipeValidator;
@@ -21,9 +26,11 @@ import steve_gall.minecolonies_compatibility.core.common.inventory.TeachInputSlo
 import steve_gall.minecolonies_compatibility.core.common.inventory.TeachRecipeMenu;
 import steve_gall.minecolonies_compatibility.core.common.inventory.TeachResultSlot;
 import steve_gall.minecolonies_compatibility.core.common.util.NBTUtils2;
+import steve_gall.minecolonies_letsdo.core.common.crafting.RecipeHelper;
 import steve_gall.minecolonies_letsdo.module.common.farm_and_charm.init.ModuleMenuTypes;
+import steve_gall.minecolonies_tweaks.core.common.item.ItemSerializationHelper;
 
-public class RoasterTeachMenu extends TeachRecipeMenu<RoasterRecipe>
+public class RoasterTeachMenu extends TeachRecipeMenu<RecipeHolder<RoasterRecipe>, RecipeInput>
 {
 	public static final int INVENTORY_X = 8;
 	public static final int INVENTORY_Y = 84;
@@ -44,7 +51,7 @@ public class RoasterTeachMenu extends TeachRecipeMenu<RoasterRecipe>
 		this.setup();
 	}
 
-	public RoasterTeachMenu(int windowId, Inventory inventory, FriendlyByteBuf buffer)
+	public RoasterTeachMenu(int windowId, Inventory inventory, RegistryFriendlyByteBuf buffer)
 	{
 		super(ModuleMenuTypes.ROASTER_TEACH.get(), windowId, inventory, buffer);
 		this.setup();
@@ -69,7 +76,7 @@ public class RoasterTeachMenu extends TeachRecipeMenu<RoasterRecipe>
 	}
 
 	@Override
-	protected IMenuRecipeValidator<RoasterRecipe> createRecipeValidator()
+	protected IMenuRecipeValidator<RecipeHolder<RoasterRecipe>, RecipeInput> createRecipeValidator()
 	{
 		return new MenuRecipeValidatorRecipe<>(this.inventory.player.level())
 		{
@@ -80,20 +87,26 @@ public class RoasterTeachMenu extends TeachRecipeMenu<RoasterRecipe>
 			}
 
 			@Override
-			protected boolean test(RoasterRecipe recipe, Container container, ServerPlayer player)
+			public @NotNull RecipeInput getInput(@NotNull Container container, @Nullable RecipeHolder<RoasterRecipe> recipe)
 			{
-				return this.matchesWithIngredientsCount(recipe, container);
+				return new RecipeWrapper(new InvWrapper(container));
+			}
+
+			@Override
+			protected boolean test(RecipeHolder<RoasterRecipe> recipe, Container container, ServerPlayer player)
+			{
+				return super.test(recipe, container, player) && RecipeHelper.matchesIngredientCount(recipe.value(), container);
 			}
 
 		};
 	}
 
 	@Override
-	protected void setContainerByTransfer(@NotNull RoasterRecipe recipe, @NotNull CompoundTag payload)
+	protected void setContainerByTransfer(@NotNull HolderLookup.Provider provider, @NotNull RecipeHolder<RoasterRecipe> recipe, @NotNull CompoundTag payload)
 	{
-		super.setContainerByTransfer(recipe, payload);
+		super.setContainerByTransfer(provider, recipe, payload);
 
-		var input = NBTUtils2.deserializeList(payload, "input", ItemStack::of);
+		var input = NBTUtils2.deserializeList(payload, "input", ItemSerializationHelper.deserializerTag(provider));
 
 		for (var i = 0; i < CRAFTING_SLOTS; i++)
 		{
@@ -103,10 +116,10 @@ public class RoasterTeachMenu extends TeachRecipeMenu<RoasterRecipe>
 	}
 
 	@Override
-	protected void onRecipeChanged(RegistryAccess registryAccess)
+	protected void onRecipeChanged(HolderLookup.Provider provider, RecipeInput input)
 	{
-		this.resultContainer.setItem(0, this.recipe != null ? this.recipe.getResultItem(registryAccess) : ItemStack.EMPTY);
-		this.resultContainer.setItem(1, this.recipe != null ? this.recipe.getContainer() : ItemStack.EMPTY);
+		this.resultContainer.setItem(0, this.recipe != null ? this.recipe.value().getResultItem(provider) : ItemStack.EMPTY);
+		this.resultContainer.setItem(1, this.recipe != null ? this.recipe.value().getContainer() : ItemStack.EMPTY);
 	}
 
 }

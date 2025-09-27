@@ -7,7 +7,7 @@ import org.jetbrains.annotations.Nullable;
 
 import com.minecolonies.api.colony.buildings.modules.IBuildingModule;
 
-import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
@@ -15,7 +15,11 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.item.crafting.RecipeType;
+import net.neoforged.neoforge.items.wrapper.InvWrapper;
+import net.neoforged.neoforge.items.wrapper.RecipeWrapper;
 import net.satisfy.farm_and_charm.core.recipe.MincerRecipe;
 import net.satisfy.farm_and_charm.core.registry.RecipeTypeRegistry;
 import steve_gall.minecolonies_compatibility.api.common.inventory.IMenuRecipeValidator;
@@ -24,11 +28,13 @@ import steve_gall.minecolonies_compatibility.core.common.inventory.TeachContaine
 import steve_gall.minecolonies_compatibility.core.common.inventory.TeachInputSlot;
 import steve_gall.minecolonies_compatibility.core.common.inventory.TeachRecipeMenu;
 import steve_gall.minecolonies_compatibility.core.common.inventory.TeachResultSlot;
+import steve_gall.minecolonies_letsdo.core.common.crafting.RecipeHelper;
 import steve_gall.minecolonies_letsdo.module.common.farm_and_charm.building.modules.MincerCraftingModule;
 import steve_gall.minecolonies_letsdo.module.common.farm_and_charm.building.modules.MincerCraftingModuleView;
 import steve_gall.minecolonies_letsdo.module.common.farm_and_charm.init.ModuleMenuTypes;
+import steve_gall.minecolonies_tweaks.core.common.item.ItemSerializationHelper;
 
-public class MincerTeachMenu extends TeachRecipeMenu<MincerRecipe>
+public class MincerTeachMenu extends TeachRecipeMenu<RecipeHolder<MincerRecipe>, RecipeInput>
 {
 	public static final int INVENTORY_X = 8;
 	public static final int INVENTORY_Y = 84;
@@ -69,7 +75,7 @@ public class MincerTeachMenu extends TeachRecipeMenu<MincerRecipe>
 	}
 
 	@Override
-	protected IMenuRecipeValidator<MincerRecipe> createRecipeValidator()
+	protected IMenuRecipeValidator<RecipeHolder<MincerRecipe>, RecipeInput> createRecipeValidator()
 	{
 		return new MenuRecipeValidatorRecipe<>(this.inventory.player.level())
 		{
@@ -80,32 +86,38 @@ public class MincerTeachMenu extends TeachRecipeMenu<MincerRecipe>
 			}
 
 			@Override
-			protected boolean test(MincerRecipe recipe, Container container, ServerPlayer player)
+			public @NotNull RecipeInput getInput(@NotNull Container container, @Nullable RecipeHolder<MincerRecipe> recipe)
 			{
-				return this.matchesWithIngredientsCount(recipe, container);
+				return new RecipeWrapper(new InvWrapper(container));
+			}
+
+			@Override
+			protected boolean test(RecipeHolder<MincerRecipe> recipe, Container container, ServerPlayer player)
+			{
+				return super.test(recipe, container, player) && RecipeHelper.matchesIngredientCount(recipe.value(), container);
 			}
 
 		};
 	}
 
 	@Override
-	protected void setContainerByTransfer(@NotNull MincerRecipe recipe, @NotNull CompoundTag payload)
+	protected void setContainerByTransfer(@NotNull HolderLookup.Provider provider, @NotNull RecipeHolder<MincerRecipe> recipe, @NotNull CompoundTag payload)
 	{
-		super.setContainerByTransfer(recipe, payload);
+		super.setContainerByTransfer(provider, recipe, payload);
 
-		this.inputContainer.setItem(0, ItemStack.of(payload.getCompound("input")));
+		this.inputContainer.setItem(0, ItemSerializationHelper.deserializeTag(provider, payload.getCompound("input")));
 	}
 
 	@Override
-	protected void onRecipeChanged(RegistryAccess registryAccess)
+	protected void onRecipeChanged(HolderLookup.Provider provider, RecipeInput input)
 	{
-		this.resultContainer.setItem(0, this.recipe != null ? this.recipe.getResultItem(registryAccess) : ItemStack.EMPTY);
+		this.resultContainer.setItem(0, this.recipe != null ? this.recipe.value().getResultItem(provider) : ItemStack.EMPTY);
 	}
 
 	@Override
-	public @Nullable Component getRecipeError(@NotNull MincerRecipe recipe)
+	public @Nullable Component getRecipeError(@NotNull RecipeHolder<MincerRecipe> recipe)
 	{
-		if (!this.isOutputCompatible(recipe.getResultItem(this.inventory.player.level().registryAccess())))
+		if (!this.isOutputCompatible(recipe.value().getResultItem(this.inventory.player.level().registryAccess())))
 		{
 			return Component.translatable("minecolonies_letsdo.text.unsupported_recipe");
 		}

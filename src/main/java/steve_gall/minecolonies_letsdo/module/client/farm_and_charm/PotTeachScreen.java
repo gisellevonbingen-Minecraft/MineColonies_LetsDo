@@ -8,6 +8,7 @@ import com.minecolonies.api.crafting.registry.CraftingType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.satisfy.farm_and_charm.core.recipe.CookingPotRecipe;
 import steve_gall.minecolonies_compatibility.core.client.gui.TeachCraftingRecipeScreen;
 import steve_gall.minecolonies_letsdo.core.common.MineColoniesLetsDo;
@@ -16,7 +17,7 @@ import steve_gall.minecolonies_letsdo.module.common.farm_and_charm.init.ModuleCr
 import steve_gall.minecolonies_letsdo.module.common.farm_and_charm.menu.PotTeachMenu;
 import steve_gall.minecolonies_tweaks.api.common.crafting.ICustomizedRecipeStorage;
 
-public class PotTeachScreen extends TeachCraftingRecipeScreen<PotTeachMenu, CookingPotRecipe>
+public class PotTeachScreen extends TeachCraftingRecipeScreen<PotTeachMenu, RecipeHolder<CookingPotRecipe>>
 {
 	public static final ResourceLocation TEXTURE = MineColoniesLetsDo.rl("textures/gui/farm_and_charm_pot_teach.png");
 
@@ -41,12 +42,12 @@ public class PotTeachScreen extends TeachCraftingRecipeScreen<PotTeachMenu, Cook
 	}
 
 	@Override
-	protected ICustomizedRecipeStorage createRecipeStorage(CookingPotRecipe recipe, List<ItemStorage> input)
+	protected ICustomizedRecipeStorage createRecipeStorage(RecipeHolder<CookingPotRecipe> recipe, List<ItemStorage> input)
 	{
 		var resultContainer = this.menu.getResultContainer();
 		var output = resultContainer.getItem(0);
 		var container = new ItemStorage(resultContainer.getItem(1));
-		return new PotRecipeStorage(recipe.getId(), input, container, output);
+		return new PotRecipeStorage(recipe.id(), input, container, output);
 	}
 
 }
