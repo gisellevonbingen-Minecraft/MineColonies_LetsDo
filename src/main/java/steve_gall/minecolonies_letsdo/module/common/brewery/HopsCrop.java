@@ -25,7 +25,7 @@ public class HopsCrop extends CustomizedCrop
 	@Override
 	public boolean isSeed(@NotNull PlantSeedContext context)
 	{
-		return context.getSeed().getItem() == ObjectRegistry.HOPS_SEEDS.get();
+		return context.getSeed().getItem() == ObjectRegistry.HOPS.get();
 	}
 
 	@Override
